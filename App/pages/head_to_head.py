@@ -52,11 +52,11 @@ full_df = load_full_df(data_directory)
 if st.button("Go To Home Page", use_container_width=True):
     st.switch_page("Home_page.py")
 if st.button("Go To All Time Team Records Page", use_container_width=True):
-    st.switch_page("pages/all_time_records.py")
+    st.switch_page("all_time_records.py")
 if st.button("Go To Team Deep Dive Page", use_container_width=True):
-    st.switch_page("pages/team_deep_dive.py")
+    st.switch_page("team_deep_dive.py")
 if st.button("Go To League Overview", use_container_width=True):
-    st.switch_page("pages/league_overview.py")
+    st.switch_page("league_overview.py")
 
 st.divider()
 

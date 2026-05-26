@@ -33,11 +33,11 @@ df = pd.read_csv(data_directory / 'elo_all_years.csv')
 if st.button("Go To Home Page", use_container_width=True):
     st.switch_page("Home_page.py")
 if st.button("Go To All Time Records", use_container_width=True):
-    st.switch_page("pages/all_time_records.py")
+    st.switch_page("all_time_records.py")
 if st.button("Go To League Overview", use_container_width=True):
-    st.switch_page("pages/league_overview.py")
+    st.switch_page("league_overview.py")
 if st.button("Go To Head to Head", use_container_width=True):
-    st.switch_page("pages/head_to_head.py")
+    st.switch_page("head_to_head.py")
 
 st.divider()
 
