@@ -28,13 +28,13 @@ df = pd.read_csv(data_directory / 'elo_all_years.csv')
 #==========================================================================
 # PAGE NAVIGATION
 #==========================================================================
-if st.button("Go To Home Page", use_container_width=True):
+if st.button("Go To Home Page", width="stretch"):
     st.switch_page("Home_page.py")
-if st.button("Go To Team Deep Dive Page", use_container_width=True):
+if st.button("Go To Team Deep Dive Page", width="stretch"):
     st.switch_page("pages/team_deep_dive.py")
-if st.button("Go To League Overview", use_container_width=True):
+if st.button("Go To League Overview", width="stretch"):
     st.switch_page("pages/league_overview.py")
-if st.button("Go To Head to Head", use_container_width=True):
+if st.button("Go To Head to Head", width="stretch"):
     st.switch_page("pages/head_to_head.py")
 
 st.divider()
@@ -74,5 +74,5 @@ final_df = final_df.merge(volatility_df[["Team", "ELO Volatility"]], on="Team", 
 cols = ["Current ELO", "Current Ranking", "Peak ELO", "Peak Ranking"]
 display_df = final_df.copy()
 display_df[cols] = display_df[cols].apply(lambda s: s.map(lambda x: f"{x:.2f}"))
-st.dataframe(display_df, hide_index=True, use_container_width=True)
+st.dataframe(display_df, hide_index=True, width="stretch")
 

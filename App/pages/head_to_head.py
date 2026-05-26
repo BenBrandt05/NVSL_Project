@@ -49,13 +49,13 @@ full_df = load_full_df(data_directory)
 #==========================================================================
 # PAGE NAVIGATION
 #==========================================================================
-if st.button("Go To Home Page", use_container_width=True):
+if st.button("Go To Home Page", width="stretch"):
     st.switch_page("Home_page.py")
-if st.button("Go To All Time Team Records Page", use_container_width=True):
+if st.button("Go To All Time Team Records Page", width="stretch"):
     st.switch_page("pages/All_Time_Records.py")
-if st.button("Go To Team Deep Dive Page", use_container_width=True):
+if st.button("Go To Team Deep Dive Page", width="stretch"):
     st.switch_page("pages/team_deep_dive.py")
-if st.button("Go To League Overview", use_container_width=True):
+if st.button("Go To League Overview", width="stretch"):
     st.switch_page("pages/league_overview.py")
 
 st.divider()
@@ -150,7 +150,7 @@ else:
         hovermode="x unified"
     )
 
-    st.plotly_chart(elo_fig, use_container_width=True)
+    st.plotly_chart(elo_fig, width="stretch")
 
 st.divider()
 
@@ -232,9 +232,9 @@ else:
         hovermode="x unified"
     )
 
-    st.plotly_chart(bar_fig, use_container_width=True)
+    st.plotly_chart(bar_fig, width="stretch")
 
     display_yearly = yearly_df.drop(columns=["Total"]).set_index("Year")
-    st.dataframe(display_yearly, use_container_width=True)
+    st.dataframe(display_yearly, width="stretch")
 
 st.divider()

@@ -30,13 +30,13 @@ df = pd.read_csv(data_directory / 'elo_all_years.csv')
 #==========================================================================
 # PAGE NAVIGATION
 #==========================================================================
-if st.button("Go To Home Page", use_container_width=True):
+if st.button("Go To Home Page", width="stretch"):
     st.switch_page("Home_page.py")
-if st.button("Go To All Time Records", use_container_width=True):
+if st.button("Go To All Time Records", width="stretch"):
     st.switch_page("pages/All_Time_Records.py")
-if st.button("Go To League Overview", use_container_width=True):
+if st.button("Go To League Overview", width="stretch"):
     st.switch_page("pages/league_overview.py")
-if st.button("Go To Head to Head", use_container_width=True):
+if st.button("Go To Head to Head", width="stretch"):
     st.switch_page("pages/head_to_head.py")
 
 st.divider()
