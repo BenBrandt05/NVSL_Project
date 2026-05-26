@@ -31,7 +31,7 @@ df = pd.read_csv(data_directory / 'elo_all_years.csv')
 # PAGE NAVIGATION
 #==========================================================================
 if st.button("Go To Home Page", use_container_width=True):
-    st.switch_page("home_page.py")
+    st.switch_page("Home_page.py")
 if st.button("Go To All Time Records", use_container_width=True):
     st.switch_page("pages/all_time_records.py")
 if st.button("Go To League Overview", use_container_width=True):

@@ -50,7 +50,7 @@ full_df = load_full_df(data_directory)
 # PAGE NAVIGATION
 #==========================================================================
 if st.button("Go To Home Page", use_container_width=True):
-    st.switch_page("home_page.py")
+    st.switch_page("Home_page.py")
 if st.button("Go To All Time Team Records Page", use_container_width=True):
     st.switch_page("pages/all_time_records.py")
 if st.button("Go To Team Deep Dive Page", use_container_width=True):
