@@ -364,7 +364,7 @@ if __name__ == "__main__":
     print("NVSL SCRAPER")
     print("="*60)
 
-    year_name = "2014"
+    year_name = "2026"
     num_teams = 102
     num_weeks = 5
     max_concurrent = 100
