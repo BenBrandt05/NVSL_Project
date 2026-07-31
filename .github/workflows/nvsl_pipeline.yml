@@ -1,0 +1,55 @@
+name: NVSL Annual Pipeline
+
+# Runs once a year, automatically, once the season is finished.
+# Also runnable manually from the Actions tab if you ever need to.
+on:
+  schedule:
+    - cron: '0 6 1 8 *'   # 6:00 AM UTC on August 1st, every year
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # needed so the job can commit results back to the repo
+
+concurrency:
+  group: nvsl-pipeline
+  cancel-in-progress: false   # never cancel a run partway through
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350   # comfortably under GitHub's 6h hard limit
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Safety net: guarantees a clean slate even if progress.csv was ever
+      # accidentally committed. With progress.csv in .gitignore (see below)
+      # this is normally a no-op, but costs nothing to keep.
+      - name: Reset progress tracker for the new season
+        run: rm -f Data/progress.csv
+
+      - name: Run scraper
+        working-directory: DataCollection        
+        run: python NVSL_Scraper_V2.py
+
+      - name: Run ELO calculations
+        working-directory: DataCollection        
+        run: python NVSL_ELO_Calculations.py
+
+      - name: Commit and push updated data
+        run: |
+          git config user.name "nvsl-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add Data/*.csv
+          git restore --staged Data/progress.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Automated NVSL data update $(date -u +'%Y-%m-%d')"
+          git push
