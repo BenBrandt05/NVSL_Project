@@ -69,6 +69,7 @@ st.divider()
 # YEAR BY YEAR STATS
 #==========================================================================
 years_list = list(df["Year"].drop_duplicates().sort_values())
+earliest_year = min(years_list)
 selected_year = st.selectbox("Select a Year", years_list)
 st.subheader(f"{selected_team} Season Stats for {selected_year}")
 
@@ -85,7 +86,7 @@ def parse_win_loss(wl_year):
 
 num_wins, num_losses = parse_win_loss(wl_year)
 
-if selected_year > 2010:
+if selected_year > earliest_year:
     current_elo = team_df.loc[team_df["Year"] == selected_year, "Average ELO"].iloc[0]
     previous_elo = team_df.loc[team_df["Year"] == selected_year - 1, "Average ELO"].iloc[0]
     elo_delta = np.round(current_elo - previous_elo, 2)
@@ -117,7 +118,7 @@ st.divider()
 #==========================================================================
 # OVERALL STATS
 #==========================================================================
-st.subheader(f"{selected_team} Overall Stats since 2010")
+st.subheader(f"{selected_team} Overall Stats since {earliest_year}")
 
 num_total_wins = 0
 num_total_losses = 0
@@ -127,8 +128,8 @@ for i in range(len(years_list)):
     num_total_losses += num_losses
 
 col1, col2, col3 = st.columns(3)
-col1.metric("Total Wins since 2010", num_total_wins, border=True)
-col2.metric("Total Losses since 2010", num_total_losses, border=True)
+col1.metric(f"Total Wins since {earliest_year}", num_total_wins, border=True)
+col2.metric(f"Total Losses since {earliest_year}", num_total_losses, border=True)
 col3.metric("Total Win %", f"{np.round((num_total_wins/(num_total_wins+num_total_losses))*100, 2)}%", border=True)
 
 peak_elo = max(team_df["Average ELO"])

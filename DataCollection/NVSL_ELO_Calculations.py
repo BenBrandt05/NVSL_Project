@@ -17,6 +17,15 @@ data_directory = Path(__file__).parent.parent / 'Data'
 def normalize(s):
     return ' '.join(s.strip().split()).lower()
 
+def clean_team_name(team):
+    return {
+        "Bren Mar-Edsall Park": "Edsall Park",
+        "Fair Oaks ": "Fair Oaks",
+        "Brookfield ": "Brookfield",
+        "Oakton ": "Oakton",
+        "Kings Ridge ": "Kings Ridge",
+    }.get(team, team.strip())
+
 def load_and_parse(file_path):
     df = pd.read_csv(file_path, header=None)
     df.columns = ['First Team', 'First Week', 'Second Team', 'Second Week', 'Score']
@@ -25,6 +34,9 @@ def load_and_parse(file_path):
     matches = []
     for row in df.itertuples(index=False):
         csv_team1, csv_team2, score_str = row[0], row[2], row[4]
+
+        csv_team1 = clean_team_name(csv_team1)
+        csv_team2 = clean_team_name(csv_team2)
  
         if pd.isna(score_str):
             continue
@@ -42,8 +54,8 @@ def load_and_parse(file_path):
         except ValueError:
             continue
  
-        label1 = ' '.join(part1[1:])
-        label2 = ' '.join(part2[1:])
+        label1 = clean_team_name(' '.join(part1[1:]))
+        label2 = clean_team_name(' '.join(part2[1:]))
  
         if label1 == label2 or csv_team1 == csv_team2:
             continue
@@ -169,6 +181,12 @@ def win_loss_matrix():
     years_csvs = sorted(data_directory.glob("results_*.csv"))
     
     elo_df = pd.read_csv(data_directory / "elo_all_years.csv")
+    
+    elo_df = elo_df.replace(
+        ["Bren Mar-Edsall Park", "Fair Oaks ", "Brookfield ", "Oakton ", "Kings Ridge "],
+        ["Edsall Park", "Fair Oaks", "Brookfield", "Oakton", "Kings Ridge"]
+    )
+    
     team_list = list(elo_df["Team"].drop_duplicates().sort_values())
     
     final_df = pd.DataFrame()

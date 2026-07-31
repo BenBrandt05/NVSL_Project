@@ -50,8 +50,7 @@ worst_current_team = df[(df['Year'] == highest_year) & (df['Rank'] == 102)].rese
 most_recent = df[df['Year'] == highest_year]
 second_most_recent = df[df['Year'] == highest_year-1]
 
-teams_list = list(most_recent["Team"])
-sorted_teams_list = sorted(teams_list)
+sorted_teams_list = sorted(list(most_recent["Team"]))
 
 add_diff = 0
 for i in range(len(sorted_teams_list)):

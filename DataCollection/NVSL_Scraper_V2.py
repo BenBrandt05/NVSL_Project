@@ -364,10 +364,10 @@ if __name__ == "__main__":
     print("NVSL SCRAPER")
     print("="*60)
 
-    year_name = "2026"
+    year_name = str(datetime.date.today().year)
     num_teams = 102
     num_weeks = 5
-    max_concurrent = 100
+    max_concurrent = 125
     checkpoint_size = 500
     batch_size = 5000
     
